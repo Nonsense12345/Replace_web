@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <style>
+      html {
+        background: url(https://images4.alphacoders.com/106/1063005.jpg);
+        background-repeat: no-repeat;
+        background-size: cover;
+      }
+      textarea {
+        border: solid 5px;
+        border-color: rgb(189, 104, 104);
+      }
+      .input-output {
+        display: flex;
+        justify-content: flex-start;
+
+        flex-direction: column;
+      }
+      .web {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-around;
+      }
+      #Names {
+        height: 70%;
+        width: 50%;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="web">
+      <div class="input-output">
+        <div>
+          <h1 style="color: rgb(35, 37, 160);">Input</h1>
+          <textarea
+            id="demo"
+            style="width: 100%;"
+            rows="5"
+            cols="50"
+          ></textarea>
+        </div>
+        <button onclick="Convert()">Convert</button>
+        <div>
+          <h1 style="color: rgb(31, 243, 42);">Output</h1>
+          <textarea
+            id="demo2"
+            style="width: 100%;"
+            rows="8"
+            cols="50"
+          ></textarea>
+        </div>
+      </div>
+      <div>
+        <h1>Names</h1>
+        <textarea
+          placeholder="một:one&#10hai : two // hai có dấu cách đằng trước, two có dấu cách đằng sau"
+          id="Names"
+          style="width: 100%;"
+        ></textarea>
+        <button onclick="Save()">Save</button>
+      </div>
+    </div>
+
+    <script>
+      function Convert() {
+        let input = document.getElementById('demo').value
+        if (input.length === 0) {
+          window.alert('???')
+        }
+        //let output = input.replaceAll(/“[^”\n]{2,50}[。!?][\n]/g, "$&".replace('\n','”\n'));
+        function AddQuote(propertyName) {
+          function addQ(match, offset, string) {
+            return match.replace('\n', '”\n')
+          }
+          return propertyName.replace(/“[^”\n]{1,80}[。！？!?]\n/g, addQ)
+        }
+        let output = AddQuote(input)
+        let names = document.getElementById('Names').value
+
+        let convert = names.split('\n').map((line) => line.split(':'))
+        convert.forEach(([key, value]) => {
+          output = output.replaceAll(key, value)
+        })
+
+        document.getElementById('demo2').value = output
+      }
+    </script>
+  </body>
+</html>
